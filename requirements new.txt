@@ -1,0 +1,14 @@
+# Core app
+streamlit>=1.35.0
+openai>=1.30.0
+
+# PDF parsing
+PyMuPDF>=1.24.0
+pdfplumber>=0.11.0
+
+# Pipeline utilities
+pyyaml>=6.0.1
+faiss-cpu>=1.8.0
+
+# Reporting
+reportlab>=4.0
