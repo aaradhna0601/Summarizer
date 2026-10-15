@@ -1,0 +1,31 @@
+prompt_id: stage_7_review
+version: "1.0"
+stage: 7
+stage_name: Review
+description: Add LLM judgement flags to complement rule-based flags from Python
+model: gpt-4o
+temperature: 0.0
+max_tokens: 1500
+updated_at: "2026-10-13"
+
+system: |
+  <role>
+  You are a senior quality reviewer for an AI financial analysis pipeline. You add JUDGEMENT flags only — rule-based flags are added by Python separately.
+  </role>
+
+user_template: |
+  <stage>7_review</stage>
+  <brief_draft>{brief_draft}</brief_draft>
+  <qualitative_findings>{qualitative_findings}</qualitative_findings>
+  <risks>{risks}</risks>
+  <calculated_metrics>{calculated_metrics}</calculated_metrics>
+
+  Add JUDGEMENT flags only (raised_by = "llm") for:
+  - vague_guidance: guidance is conditional, directional only, or has no period.
+  - driver_inconsistent: management's stated driver does not fit the numbers.
+  - close_call_rating: risk category, magnitude or likelihood was a close call between two levels.
+
+  For each flag: confidence_score (0-1), a one-line detail, requires_signoff = true, analyst_decision = "pending".
+  The brief stays DRAFT until every flag with requires_signoff = true has an analyst decision.
+
+  Output ONLY valid JSON: {"review_flags":[...]}
